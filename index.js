@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import readlineSync from 'readline-sync';
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
-const ai = new GoogleGenAI({apiKey: "AIzaSyA-waoxQATgDWZjfLp1voqTUDl4IzUZHEI"});
+const ai = new GoogleGenAI({apiKey: ""});
 
 const chat = ai.chats.create({
     model:"gemini-3-flash-preview",

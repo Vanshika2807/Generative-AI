@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import readlineSync from 'readline-sync';
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
-const ai = new GoogleGenAI({apiKey: "AIzaSyA8q2O6qz5pCywVSKhIFZoKk-7jdboOShY"});
+const ai = new GoogleGenAI({apiKey: ""});
 
 var history = [] //while starting the chat ask that what is todays temperature and date - wont be able to tell
 
