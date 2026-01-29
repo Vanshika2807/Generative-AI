@@ -97,7 +97,7 @@ async function runAgent(userProblem) {
             console.log("Function Call Detected: ", response.functionCalls[0]);
             const {name, args, thought_signature } = response.functionCalls[0]; //taking first function call
             const funcTools = availableFunctions[name]; //getting function from available functions
-            const result = await funcTools(args);
+            const result = await funcTools(args);//we cannot directly use name[args] as name is string so we need to map it from available functions
 
             const functionResponsePart = {
                 name: name,
