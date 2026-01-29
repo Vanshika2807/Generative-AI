@@ -84,6 +84,8 @@ async function runAgent(userProblem) {
             model: "gemini-3-flash-preview",
             contents:history,
             config: {
+                systemInstruction: `you are an ai agent having access to 3 tools like to calculate sum of 2 numbers, to check if a number is prime or not and to get crypto price of any cryptocurrency.
+                also if user asks any question not related to these tools then reply them if you dont even need help of these tools.`,
                 tools: [
                     {functionDeclarations: [sumDeclaration, isPrimeDeclaration, getCryptoPriceDeclaration]}
                 ]
@@ -93,7 +95,7 @@ async function runAgent(userProblem) {
 
         if(response.functionCalls && response.functionCalls.length > 0){ //this returns an array
             console.log("Function Call Detected: ", response.functionCalls[0]);
-            const {name, args} = response.functionCalls[0]; //taking first function call
+            const {name, args, thought_signature } = response.functionCalls[0]; //taking first function call
             const funcTools = availableFunctions[name]; //getting function from available functions
             const result = await funcTools(args);
 
@@ -104,10 +106,16 @@ async function runAgent(userProblem) {
                 }
             }
 
-            //NOW PUSH TO HISTORY THE MODEL RESPONSE AND FUNCTION CALL RESULT SO THAT IT CAN USE IT FOR NEXT QUESTION
+            // NOW PUSH TO HISTORY THE MODEL RESPONSE AND FUNCTION CALL RESULT SO THAT IT CAN USE IT FOR NEXT QUESTION
             // history.push({
             //     role:'model',
-            //     parts:[{functionCall:response.functionCalls[0]}]
+            //     parts:[{
+            //         functionCall: {
+            //                             name,
+            //                             args,
+            //                             thought_signature
+            //                         }
+            //         }]
             // })
 
             history.push({
